@@ -47,6 +47,9 @@ public:
    //
    unordered_set() :numElements(0), maxLoadFactor(1.0), buckets(8)
    {
+      /*maxLoadFactor = 1.0;
+      numElements = 0;
+      buckets(8);*/
    }
    unordered_set(size_t numBuckets) : numElements(0), maxLoadFactor(1.0), buckets(numBuckets)
    {
@@ -164,22 +167,25 @@ public:
    //
    void clear() noexcept
    {
+      /*for each (auto bucket in buckets)
+         bucket.clear();
+      numElements = 0;*/
    }
    iterator erase(const T& t);
 
    //
    // Status
    //
-   size_t size() const
-   {
+   size_t size() const 
+   { 
       return numElements;
    }
-   bool empty() const
-   {
-      return (numElements == 0) ? true : false;
+   bool empty() const 
+   { 
+      return size() == 0;
    }
-   size_t bucket_count() const
-   {
+   size_t bucket_count() const 
+   { 
       return buckets.size();
    }
    size_t bucket_size(size_t i) const
@@ -190,8 +196,8 @@ public:
    {
       return size() / bucket_count();
    }
-   float max_load_factor() const noexcept
-   {
+   float max_load_factor() const noexcept 
+   { 
       return maxLoadFactor;
    }
    void  max_load_factor(float m)
