@@ -51,18 +51,18 @@ public:
       // test_construct_nonDefaultHash();
 
       // Assign
-      // test_assign_emptyEmpty();
-      // test_assign_emptyStandard();
-      // test_assign_standardEmpty();
-      // test_assignMove_emptyEmpty();
-      // test_assignMove_emptyStandard();
-      // test_assignMove_standardEmpty();
-      // test_swapMember_emptyEmpty();
-      // test_swapMember_standardEmpty();
-      // test_swapMember_standardOther();
-      // test_swapNonMember_emptyEmpty();
-      // test_swapNonMember_standardEmpty();
-      // test_swapNonMember_standardOther();
+      test_assign_emptyEmpty();
+      test_assign_emptyStandard();
+      test_assign_standardEmpty();
+      test_assignMove_emptyEmpty();
+      test_assignMove_emptyStandard();
+      test_assignMove_standardEmpty();
+      test_swapMember_emptyEmpty();
+      test_swapMember_standardEmpty();
+      test_swapMember_standardOther();
+      test_swapNonMember_emptyEmpty();
+      test_swapNonMember_standardEmpty();
+      test_swapNonMember_standardOther();
 
       // Iterator
       // test_iterator_begin_empty();

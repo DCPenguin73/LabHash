@@ -62,10 +62,10 @@ public:
    template <class Iterator>
    unordered_set(Iterator first, Iterator last)
    {
-      // for (auto it = first; it < last; it++)
-      // {
-      //    insert(*it);
-      // }
+      for (auto it = first; it < last; it++)
+      {
+         insert(*it);
+      }
    }
 
    //
@@ -73,20 +73,31 @@ public:
    //
    unordered_set& operator=(const unordered_set& rhs)
    {
-      // *this = *rhs;
+      numElements = rhs.numElements;
+      maxLoadFactor = rhs.maxLoadFactor;
+      buckets = rhs.buckets;
       return *this;
    }
    unordered_set& operator=(unordered_set&& rhs)
    {
-      // *this = std::move((*rhs));
+      numElements = std::move(rhs.numElements);
+      maxLoadFactor = std::move(rhs.maxLoadFactor);
+      buckets = std::move(buckets);
+
+      rhs.numElements = 0;
+      rhs.maxLoadFactor = 1.0;
+      rhs.buckets.resize(8);
+
       return *this;
    }
    unordered_set& operator=(const std::initializer_list<T>& il)
    {
-      // for (auto it = il.begin(); it != il.end(); it++)
-      // {
-      //    insert(*it);
-      // }
+      clear();
+      reserve(il.size());
+      for (auto element : il)
+      {
+         insert(element);
+      }
       return *this;
    }
    void swap(unordered_set& rhs)
@@ -104,11 +115,19 @@ public:
    class local_iterator;
    iterator begin()
    {
+      // for (auto itBucket = buckets.begin(); itBucket != buckets.end(); itBucket++)
+      // {
+      //    if (!itBucket.empty())
+      //    {
+      //       return iterator(buckets.end(), itBucket, itBucket.begin());
+      //    }
+      // }
+      // return end();
       return iterator();
    }
    iterator end()
    {
-      return iterator();
+      return iterator(buckets.end(), buckets.end(), buckets[0].end());
    }
    local_iterator begin(size_t iBucket)
    {
@@ -124,6 +143,8 @@ public:
    //
    size_t bucket(const T& t)
    {
+      // Should work I will need to come back to this.
+      // return std::hash(t) % bucket_count();
       return (size_t)99;
    }
    iterator find(const T& t);
@@ -210,6 +231,7 @@ public:
    iterator(const typename custom::vector<custom::list<T> >::iterator& itVectorEnd,
             const typename custom::vector<custom::list<T> >::iterator& itVector,
             const typename custom::list<T>::iterator &itList)
+   : itVectorEnd(itVectorEnd), itVector(itVector), itList(itList)
    {
    }
    iterator(const iterator& rhs)
@@ -310,7 +332,7 @@ public:
    //
    T& operator * ()
    {
-      return *(new T);
+      return (*this);
    }
 
    //
