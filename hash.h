@@ -120,8 +120,8 @@ public:
             return iterator(buckets.end(), itBucket, (*itBucket).begin());
          }
       }
-      return end();
-     // return iterator();
+       return end();
+      // return iterator();
    }
    iterator end()
    {
@@ -274,7 +274,7 @@ public:
    //
    T& operator * ()
    {
-      return *(new T);
+      return *itList;
    }
 
    //
@@ -283,7 +283,9 @@ public:
    iterator& operator ++ ();
    iterator operator ++ (int postfix)
    {
-      return *this;
+      iterator temp = *this;
+      ++postfix;
+      return temp;
    }
 
 private:
@@ -472,6 +474,24 @@ template <typename T, typename H, typename E, typename A>
 typename unordered_set <T, H, E, A> ::iterator & unordered_set<T, H, E, A>::iterator::operator ++ ()
 {
 
+   // Only advance if we are not at the end
+   if (itVector == itVectorEnd)
+      return *this;
+
+   // Advance the list iterator. If we are not at the end, we are done.
+   ++itList;
+   if (itList != (*itVector).end())
+      return *this;
+
+   // We are at the end of the list. Find the next bucket.
+   ++itVector;
+   while (itVector != itVectorEnd && (*itVector).empty())
+      ++itVector;
+   if (itVector != itVectorEnd)
+      itList = (*itVector).begin();
+
+   return *this;
+
 }
 
 /*****************************************
@@ -481,7 +501,6 @@ typename unordered_set <T, H, E, A> ::iterator & unordered_set<T, H, E, A>::iter
 template <typename T, typename H, typename E, typename A>
 void swap(unordered_set<T,H,E,A>& lhs, unordered_set<T,H,E,A>& rhs)
 {
-   // using std::swap;
    lhs.swap(rhs);
 }
 
