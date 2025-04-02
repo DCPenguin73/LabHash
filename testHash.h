@@ -69,16 +69,16 @@ public:
       test_iterator_begin_standard();
       test_iterator_end_empty();
       test_iterator_end_standard();
-      // test_iterator_increment_empty();
+      //test_iterator_increment_empty();
       // test_iterator_increment_moreInBucket();
       // test_iterator_increment_nextBucket();
-      // test_iterator_increment_toEnd();
-      // test_iterator_dereference();
-      // test_localIterator_begin_single();
-      // test_localIterator_begin_multiple();
-      // test_localIterator_begin_empty();
-      // test_localIterator_increment_single();
-      // test_localIterator_increment_multiple();
+      //test_iterator_increment_toEnd();
+      //test_iterator_dereference();
+      test_localIterator_begin_single();
+      test_localIterator_begin_multiple();
+      test_localIterator_begin_empty();
+      test_localIterator_increment_single();
+      test_localIterator_increment_multiple();
 
       // Access
       test_bucket_empty0();

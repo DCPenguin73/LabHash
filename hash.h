@@ -65,9 +65,7 @@ public:
       reserve(last - first);
       maxLoadFactor = 1.0;
       for (auto it = first; it < last; it++)
-      {
          insert(*it);
-      }
    }
 
    //
@@ -97,9 +95,7 @@ public:
       clear();
       reserve(il.size());
       for (auto element : il)
-      {
          insert(element);
-      }
       return *this;
    }
    void swap(unordered_set& rhs)
@@ -118,14 +114,14 @@ public:
    iterator begin()
    {
       for (auto itBucket = buckets.begin(); itBucket != buckets.end(); itBucket++)
-       {
+      {
          if (!(*itBucket).empty())
          {
             return iterator(buckets.end(), itBucket, (*itBucket).begin());
          }
-       }
-       return end();
-      // return iterator();
+      }
+      return end();
+     // return iterator();
    }
    iterator end()
    {
@@ -327,6 +323,8 @@ public:
    //
    local_iterator& operator = (const local_iterator& rhs)
    {
+      if (rhs.itList != itList)
+         itList = rhs.itList;
       return *this;
    }
 
@@ -336,16 +334,12 @@ public:
    bool operator != (const local_iterator& rhs) const
    {
       if (rhs.itList != itList)
-      {
          return true;
-      }
    }
    bool operator == (const local_iterator& rhs) const
    {
       if (rhs.itList == itList)
-      {
          return true;
-      }
    }
 
    //
@@ -383,9 +377,7 @@ typename unordered_set <T, Hash, E, A> ::iterator unordered_set<T,Hash,E,A>::era
 {
    /*itErase = find(t);
    if (itErase == end())
-   {
       return itErase;
-   }
    itReturn = itErase;
    itReturn++;
    itErase.itVector.erase(itErase.itList);
@@ -479,7 +471,7 @@ typename unordered_set <T, H, E, A> ::iterator unordered_set<T, H, E, A>::find(c
 template <typename T, typename H, typename E, typename A>
 typename unordered_set <T, H, E, A> ::iterator & unordered_set<T, H, E, A>::iterator::operator ++ ()
 {
-   return *this;
+
 }
 
 /*****************************************
