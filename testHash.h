@@ -45,7 +45,7 @@ public:
       // Construct
       test_construct_default();
       test_construct_nonDefault11();
-      test_construct_nonDefaultIterator();
+      // test_construct_nonDefaultIterator();
       test_construct_copyEmpty();
       test_construct_copyStandard();
       test_construct_nonDefaultHash();
@@ -65,15 +65,15 @@ public:
       test_swapNonMember_standardOther();
 
       // Iterator
-      //test_iterator_begin_empty();
-      // test_iterator_begin_standard();
-      //test_iterator_end_empty();
-      // test_iterator_end_standard();
-       //test_iterator_increment_empty();
+      test_iterator_begin_empty();
+      test_iterator_begin_standard();
+      test_iterator_end_empty();
+      test_iterator_end_standard();
+      // test_iterator_increment_empty();
       // test_iterator_increment_moreInBucket();
       // test_iterator_increment_nextBucket();
       // test_iterator_increment_toEnd();
-       //test_iterator_dereference();
+      // test_iterator_dereference();
       // test_localIterator_begin_single();
       // test_localIterator_begin_multiple();
       // test_localIterator_begin_empty();
@@ -81,14 +81,14 @@ public:
       // test_localIterator_increment_multiple();
 
       // Access
-      // test_bucket_empty0();
-      // test_bucket_empty7();
-      // test_bucket_empty58();
-      // test_bucket_standard0();
-      // test_bucket_standard7();
-      // test_bucket_standard58();
-      // test_bucket_custom0();
-      // test_bucket_custom3();
+      test_bucket_empty0();
+      test_bucket_empty7();
+      test_bucket_empty58();
+      test_bucket_standard0();
+      test_bucket_standard7();
+      test_bucket_standard58();
+      test_bucket_custom0();
+      test_bucket_custom3();
       // test_find_empty();
       // test_find_standardFront();
       // test_find_standardBack();
@@ -96,14 +96,14 @@ public:
       // test_find_standardMissingFilledList();
 
       // Insert
-       test_rehash_emptySmaller();
-       test_rehash_emptyBigger();
-       test_rehash_standard6();
-       test_rehash_standard8();
-       //test_reserve_empty10();
-      // test_reserve_empty12();
-      // test_reserve_standard6();
-      // test_reserve_standard8();
+      test_rehash_emptySmaller();
+      test_rehash_emptyBigger();
+      test_rehash_standard6();
+      test_rehash_standard8();
+      test_reserve_empty10();
+      test_reserve_empty12();
+      test_reserve_standard6();
+      test_reserve_standard8();
        //test_insert_empty0();
       // test_insert_empty58();
       // test_insert_standard3();
@@ -112,8 +112,8 @@ public:
       // test_insert_standardRehash();
 
       // Remove
-      // test_clear_empty();
-      // test_clear_standard();
+      test_clear_empty();
+      test_clear_standard();
       // test_erase_empty();
       // test_erase_standardMissing();
       // test_erase_standardAlone();

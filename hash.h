@@ -63,6 +63,7 @@ public:
    unordered_set(Iterator first, Iterator last)
    {
       reserve(last - first);
+      maxLoadFactor = 1.0;
       for (auto it = first; it < last; it++)
       {
          insert(*it);
@@ -116,15 +117,15 @@ public:
    class local_iterator;
    iterator begin()
    {
-     /*  for (auto itBucket = buckets.begin(); itBucket != buckets.end(); itBucket++)
+      for (auto itBucket = buckets.begin(); itBucket != buckets.end(); itBucket++)
        {
-          if (!itBucket.empty())
-          {
-             return iterator(buckets.end(), itBucket, itBucket.begin());
-          }
+         if (!(*itBucket).empty())
+         {
+            return iterator(buckets.end(), itBucket, (*itBucket).begin());
+         }
        }
-       return end();*/
-      return iterator();
+       return end();
+      // return iterator();
    }
    iterator end()
    {
@@ -144,9 +145,7 @@ public:
    //
    size_t bucket(const T& t)
    {
-      // Should work I will need to come back to this.
-       //return std::hash(t) % bucket_count();
-      return (size_t)99;
+      return Hash()(t) % bucket_count();
    }
    iterator find(const T& t);
 
@@ -166,25 +165,25 @@ public:
    //
    void clear() noexcept
    {
-      /*for each (auto bucket in buckets)
+      for (auto& bucket : buckets)
          bucket.clear();
-      numElements = 0;*/
+      numElements = 0;
    }
    iterator erase(const T& t);
 
    //
    // Status
    //
-   size_t size() const 
-   { 
+   size_t size() const
+   {
       return numElements;
    }
-   bool empty() const 
-   { 
+   bool empty() const
+   {
       return size() == 0;
    }
-   size_t bucket_count() const 
-   { 
+   size_t bucket_count() const
+   {
       return buckets.size();
    }
    size_t bucket_size(size_t i) const
@@ -195,8 +194,8 @@ public:
    {
       return size() / bucket_count();
    }
-   float max_load_factor() const noexcept 
-   { 
+   float max_load_factor() const noexcept
+   {
       return maxLoadFactor;
    }
    void  max_load_factor(float m)
@@ -248,6 +247,9 @@ public:
    //
    iterator& operator = (const iterator& rhs)
    {
+      itVectorEnd = rhs.itVectorEnd;
+      itList = rhs.itList;
+      itVector = rhs.itVector;
       return *this;
    }
 
@@ -256,11 +258,19 @@ public:
    //
    bool operator != (const iterator& rhs) const
    {
-      return true;
+      return (
+         (itVectorEnd != rhs.itVectorEnd) ||
+         (itVector != rhs.itVector) ||
+         (itList != rhs.itList)
+      );
    }
    bool operator == (const iterator& rhs) const
    {
-      return true;
+      return (
+         (itVectorEnd == rhs.itVectorEnd) &&
+         (itVector == rhs.itVector) &&
+         (itList == rhs.itList)
+      );
    }
 
    //
