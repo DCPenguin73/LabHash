@@ -375,11 +375,11 @@ private:
 template <typename T, typename Hash, typename E, typename A>
 typename unordered_set <T, Hash, E, A> ::iterator unordered_set<T,Hash,E,A>::erase(const T& t)
 {
-   /*itErase = find(t);
+  /* iterator itErase = find(t);
    if (itErase == end())
       return itErase;
-   itReturn = itErase;
-   itReturn++;
+   iterator itReturn = itErase;
+   ++itReturn;
    itErase.itVector.erase(itErase.itList);
    numElements--;
    return itReturn;*/
@@ -444,22 +444,19 @@ void unordered_set<T, Hash, E, A>::rehash(size_t numBuckets)
 template <typename T, typename H, typename E, typename A>
 typename unordered_set <T, H, E, A> ::iterator unordered_set<T, H, E, A>::find(const T& t)
 {
-   //// If no buckets exist, return end
+   //// If there are no buckets, return end()
    //if (buckets.empty())
    //   return end();
 
-   //// Compute bucket index
-   //size_t index = H()(t) % bucket_count();
-   //auto bucketIt = buckets.begin() + index;  // Use std::vector iterator properly
+   //// Compute the bucket index
+   //size_t iBucket = bucket(t);
 
-   //// Search within the bucket
-   //for (auto listIt = bucketIt->begin(); listIt != bucketIt->end(); ++listIt)
-   //{
-   //   if (E()(*listIt, t))  // Uses equality predicate to compare
-   //      return iterator(bucketIt, listIt); // Ensure iterator constructor matches
-   //}
+   //// Find the element in the bucket's list
+   //itList = buckets[iBucket].find(t);
 
-   //// Not found, return end
+   //// If found, return the iterator
+   //if (itList != buckets[iBucket].end())
+   //   return iterator(buckets.end(), itVector(buckets, iBucket), itList);
    //return end();
    return iterator();
 }

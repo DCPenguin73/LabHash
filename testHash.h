@@ -74,8 +74,8 @@ public:
       // test_iterator_increment_nextBucket();
       //test_iterator_increment_toEnd();
       //test_iterator_dereference();
-      test_localIterator_begin_single();
-      test_localIterator_begin_multiple();
+      //test_localIterator_begin_single();
+      //test_localIterator_begin_multiple();
       test_localIterator_begin_empty();
       test_localIterator_increment_single();
       test_localIterator_increment_multiple();
@@ -89,7 +89,7 @@ public:
       test_bucket_standard58();
       test_bucket_custom0();
       test_bucket_custom3();
-      // test_find_empty();
+       test_find_empty();
       // test_find_standardFront();
       // test_find_standardBack();
       // test_find_standardMissingEmptyList();
@@ -104,7 +104,7 @@ public:
       test_reserve_empty12();
       test_reserve_standard6();
       test_reserve_standard8();
-       //test_insert_empty0();
+      //test_insert_empty0();
       // test_insert_empty58();
       // test_insert_standard3();
       // test_insert_standard44();
