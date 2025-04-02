@@ -63,6 +63,7 @@ public:
    unordered_set(Iterator first, Iterator last)
    {
       reserve(last - first);
+      maxLoadFactor = 1.0;
       for (auto it = first; it < last; it++)
          insert(*it);
    }
@@ -112,15 +113,15 @@ public:
    class local_iterator;
    iterator begin()
    {
-       /*for (auto itBucket = buckets.begin(); itBucket != buckets.end(); itBucket++)
-       {
-          if (!itBucket.empty())
-          {
-             return iterator(buckets.end(), itBucket, itBucket.begin());
-          }
-       }
-       return end();*/
-      return iterator();
+      for (auto itBucket = buckets.begin(); itBucket != buckets.end(); itBucket++)
+      {
+         if (!(*itBucket).empty())
+         {
+            return iterator(buckets.end(), itBucket, (*itBucket).begin());
+         }
+      }
+      return end();
+     // return iterator();
    }
    iterator end()
    {
@@ -169,16 +170,16 @@ public:
    //
    // Status
    //
-   size_t size() const 
-   { 
+   size_t size() const
+   {
       return numElements;
    }
-   bool empty() const 
-   { 
+   bool empty() const
+   {
       return size() == 0;
    }
-   size_t bucket_count() const 
-   { 
+   size_t bucket_count() const
+   {
       return buckets.size();
    }
    size_t bucket_size(size_t i) const
@@ -189,8 +190,8 @@ public:
    {
       return size() / bucket_count();
    }
-   float max_load_factor() const noexcept 
-   { 
+   float max_load_factor() const noexcept
+   {
       return maxLoadFactor;
    }
    void  max_load_factor(float m)
@@ -242,6 +243,9 @@ public:
    //
    iterator& operator = (const iterator& rhs)
    {
+      itVectorEnd = rhs.itVectorEnd;
+      itList = rhs.itList;
+      itVector = rhs.itVector;
       return *this;
    }
 
@@ -250,11 +254,19 @@ public:
    //
    bool operator != (const iterator& rhs) const
    {
-      return itVector != rhs.itVector || itList != rhs.itList;
+      return (
+         (itVectorEnd != rhs.itVectorEnd) ||
+         (itVector != rhs.itVector) ||
+         (itList != rhs.itList)
+      );
    }
    bool operator == (const iterator& rhs) const
    {
-      return itVector == rhs.itVector && itList == rhs.itList;
+      return (
+         (itVectorEnd == rhs.itVectorEnd) &&
+         (itVector == rhs.itVector) &&
+         (itList == rhs.itList)
+      );
    }
 
    //
