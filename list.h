@@ -118,6 +118,7 @@ namespace custom
 
       T& front();
       T& back();
+      iterator find(const T& value);
 
       //
       // Insert
@@ -598,6 +599,24 @@ namespace custom
          return *(new T);
    }
 
+   /*********************************************
+    * LIST :: FIND
+    * Locates an element in the list
+    *     INPUT  : the value to be searched
+    *     OUTPUT : an iterator pointing to the value
+    *     COST   : O(n)
+    *********************************************/
+    template <typename T, typename A>
+    typename list <T, A> ::iterator list <T, A> ::
+       find(const T& value)
+   {
+      for (iterator it = begin(); it != end(); ++it)
+      {
+         if (*it == value)
+            return it;
+      }
+      return end();
+   }
 
    /******************************************
     * LIST :: REMOVE
