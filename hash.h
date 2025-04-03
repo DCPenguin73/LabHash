@@ -375,15 +375,14 @@ private:
 template <typename T, typename Hash, typename E, typename A>
 typename unordered_set <T, Hash, E, A> ::iterator unordered_set<T,Hash,E,A>::erase(const T& t)
 {
-  /* iterator itErase = find(t);
+   iterator itErase = find(t);
    if (itErase == end())
       return itErase;
    iterator itReturn = itErase;
    ++itReturn;
-   itErase.itVector.erase(itErase.itList);
+   (*itErase.itVector).erase(itErase.itList);
    numElements--;
-   return itReturn;*/
-   return iterator();
+   return itReturn;
 }
 
 /*****************************************
@@ -393,16 +392,23 @@ typename unordered_set <T, Hash, E, A> ::iterator unordered_set<T,Hash,E,A>::era
 template <typename T, typename H, typename E, typename A>
 custom::pair<typename custom::unordered_set<T, H, E, A>::iterator, bool> unordered_set<T, H, E, A>::insert(const T& t)
 {
-   /*if (find(t) != end())
-      return { end(), false };
+   //size_t iBucket = bucket(t);
+   //// Check if the element already exists in the bucket
+   //for (auto it = buckets[iBucket].begin(); it != buckets[iBucket].end(); ++it)
+   //{
+   //   if (*it == t)
+   //      return { iterator(), false }; // Element already exists
+   //}
+   //if (min_buckets_required(numElements + 1) > bucket_count())
+   //{
+   //   reserve(numElements * 2);
+   //   iBucket = bucket(t);
+   //}
+   //buckets[iBucket].push_back(t);
+   //numElements++;
 
-   if (load_factor() >= max_load_factor)
-      rehash(bucket_count() * 2);
-
-   size_t iBucket = bucket(t);
-   buckets[iBucket].push_back(t);
-   numElements++;
-   return { iterator(buckets.end(), buckets.begin() + iBucket, --buckets[iBucket].end()), true };*/
+   //return { iterator(buckets.end(), buckets.begin() + iBucket, --buckets[iBucket].end()), true };
+   
    return custom::pair<custom::unordered_set<T, H, E, A>::iterator, bool>(iterator(), true);
 }
 template <typename T, typename H, typename E, typename A>

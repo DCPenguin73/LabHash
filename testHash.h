@@ -105,21 +105,21 @@ public:
       test_reserve_standard6();
       test_reserve_standard8();
       //test_insert_empty0();
-      // test_insert_empty58();
-      // test_insert_standard3();
-      // test_insert_standard44();
-      // test_insert_standardDuplicate();
-      // test_insert_standardRehash();
+      //test_insert_empty58();
+      //test_insert_standard3();
+      //test_insert_standard44();
+      //test_insert_standardDuplicate();
+      //test_insert_standardRehash();
 
       // Remove
       test_clear_empty();
       test_clear_standard();
-      // test_erase_empty();
-      // test_erase_standardMissing();
-      // test_erase_standardAlone();
-      // test_erase_standardFront();
-      // test_erase_standardBack();
-      // test_erase_standardLast();
+      test_erase_empty();
+      test_erase_standardMissing();
+      test_erase_standardAlone();
+      test_erase_standardFront();
+      test_erase_standardBack();
+      test_erase_standardLast();
 
       // Status
       test_size_empty();
