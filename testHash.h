@@ -69,7 +69,6 @@ public:
       test_iterator_begin_standard();
       test_iterator_end_empty();
       test_iterator_end_standard();
-
       test_iterator_increment_empty();
       test_iterator_increment_moreInBucket();
       test_iterator_increment_nextBucket();
@@ -105,7 +104,7 @@ public:
       test_reserve_empty12();
       test_reserve_standard6();
       test_reserve_standard8();
-       //test_insert_empty0();
+      //test_insert_empty0();
       // test_insert_empty58();
       // test_insert_standard3();
       // test_insert_standard44();

@@ -375,11 +375,11 @@ private:
 template <typename T, typename Hash, typename E, typename A>
 typename unordered_set <T, Hash, E, A> ::iterator unordered_set<T,Hash,E,A>::erase(const T& t)
 {
-   /*itErase = find(t);
+  /* iterator itErase = find(t);
    if (itErase == end())
       return itErase;
-   itReturn = itErase;
-   itReturn++;
+   iterator itReturn = itErase;
+   ++itReturn;
    itErase.itVector.erase(itErase.itList);
    numElements--;
    return itReturn;*/
