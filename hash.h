@@ -129,11 +129,11 @@ public:
    }
    local_iterator begin(size_t iBucket)
    {
-      return local_iterator();
+      return local_iterator(buckets[iBucket].begin());
    }
    local_iterator end(size_t iBucket)
    {
-      return local_iterator();
+      return local_iterator(buckets[iBucket].end());
    }
 
    //
@@ -335,13 +335,11 @@ public:
    //
    bool operator != (const local_iterator& rhs) const
    {
-      if (rhs.itList != itList)
-         return true;
+      return (rhs.itList != itList);
    }
    bool operator == (const local_iterator& rhs) const
    {
-      if (rhs.itList == itList)
-         return true;
+      return (rhs.itList == itList);
    }
 
    //
@@ -446,24 +444,21 @@ void unordered_set<T, Hash, E, A>::rehash(size_t numBuckets)
 template <typename T, typename H, typename E, typename A>
 typename unordered_set <T, H, E, A> ::iterator unordered_set<T, H, E, A>::find(const T& t)
 {
-   //// If no buckets exist, return end
-   //if (buckets.empty())
-   //   return end();
+   // Identify bucket number corresponding to "t"
+   size_t iBucket = bucket(t);
 
-   //// Compute bucket index
-   //size_t index = H()(t) % bucket_count();
-   //auto bucketIt = buckets.begin() + index;  // Use std::vector iterator properly
+   // Get a list iterator to the element using the list’s find() method.
+   typename custom::list<T, A>::iterator itList = buckets[iBucket].find(t);
 
-   //// Search within the bucket
-   //for (auto listIt = bucketIt->begin(); listIt != bucketIt->end(); ++listIt)
-   //{
-   //   if (E()(*listIt, t))  // Uses equality predicate to compare
-   //      return iterator(bucketIt, listIt); // Ensure iterator constructor matches
-   //}
+   // Create an iterator to return
+   if (itList != buckets[iBucket].end())
+      return iterator(
+         buckets.end(),
+         typename custom::vector<custom::list<T, A>>::iterator(iBucket, buckets),
+         itList
+      );
 
-   //// Not found, return end
-   //return end();
-   return iterator();
+   return end();
 }
 
 /*****************************************
