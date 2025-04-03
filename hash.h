@@ -392,24 +392,29 @@ typename unordered_set <T, Hash, E, A> ::iterator unordered_set<T,Hash,E,A>::era
 template <typename T, typename H, typename E, typename A>
 custom::pair<typename custom::unordered_set<T, H, E, A>::iterator, bool> unordered_set<T, H, E, A>::insert(const T& t)
 {
-   //size_t iBucket = bucket(t);
-   //// Check if the element already exists in the bucket
-   //for (auto it = buckets[iBucket].begin(); it != buckets[iBucket].end(); ++it)
-   //{
-   //   if (*it == t)
-   //      return { iterator(), false }; // Element already exists
-   //}
-   //if (min_buckets_required(numElements + 1) > bucket_count())
-   //{
-   //   reserve(numElements * 2);
-   //   iBucket = bucket(t);
-   //}
-   //buckets[iBucket].push_back(t);
-   //numElements++;
+   size_t iBucket = bucket(t);
+   // Check if the element already exists in the bucket
+   for (auto it = buckets[iBucket].begin(); it != buckets[iBucket].end(); ++it)
+   {
+      if (*it == t)
+         return { iterator(buckets.end(), typename custom::vector<custom::list<T, A>>::iterator(iBucket, buckets), buckets[iBucket].rbegin()), false }; // Element already exists
+   }
+   if (min_buckets_required(numElements + 1) > bucket_count())
+   {
+      reserve(numElements * 2);
+      iBucket = bucket(t);
+   }
+   buckets[iBucket].push_back(t);
+   numElements++;
 
-   //return { iterator(buckets.end(), buckets.begin() + iBucket, --buckets[iBucket].end()), true };
+   return { iterator(buckets.end(), typename custom::vector<custom::list<T, A>>::iterator(iBucket, buckets), buckets[iBucket].rbegin()), true };
+   /*iterator(
+      buckets.end(),
+      typename custom::vector<custom::list<T, A>>::iterator(iBucket, buckets),
+      itList
+   );*/
    
-   return custom::pair<custom::unordered_set<T, H, E, A>::iterator, bool>(iterator(), true);
+   //return custom::pair<custom::unordered_set<T, H, E, A>::iterator, bool>(iterator(), true);
 }
 template <typename T, typename H, typename E, typename A>
 void unordered_set<T, H, E, A>::insert(const std::initializer_list<T> & il)
